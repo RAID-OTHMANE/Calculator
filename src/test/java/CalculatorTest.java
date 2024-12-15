@@ -1,23 +1,24 @@
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
+import org.junit.jupiter.api.Test;
+import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculatorTest {
 
-    @ParameterizedTest
-    @CsvSource({
-            "0, 1, 1",
-            "1, 2, 3",
-            "-2, -2, -4",
-            "0, 0, 0",
-            "-1, -2, -3"
-    })
-    public void testAddParametre(int opG, int opD, int resultatAttendu) {
-        // Appel de la méthode add avec les paramètres opG et opD
-        int result = Calculator.add(opG, opD);
+    @Test
+    public void testEnsembleChiffresPositive() {
+        Set<Integer> result = Calculator.ensembleChiffres(7679);
+        assertThat(result).containsExactlyInAnyOrder(6, 7, 9); // Réponse attendue : {6, 7, 9}
+    }
 
-        // Vérification du résultat attendu
-        assertThat(result).isEqualTo(resultatAttendu);
+    @Test
+    public void testEnsembleChiffresNegative() {
+        Set<Integer> result = Calculator.ensembleChiffres(-11);
+        assertThat(result).containsExactly(1); // Réponse attendue : {1}
+    }
+
+    @Test
+    public void testEnsembleChiffresZero() {
+        Set<Integer> result = Calculator.ensembleChiffres(0);
+        assertThat(result).containsExactly(0); // Réponse attendue : {0}
     }
 }
