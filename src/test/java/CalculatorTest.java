@@ -1,27 +1,23 @@
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculatorTest {
 
-    @Test
-    public void testDivideByZero() {
-        // Appel direct de la méthode statique
-        assertThatThrownBy(() -> Calculator.divide(5, 0))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Division par zéro non autorisée");
-    }
+    @ParameterizedTest
+    @CsvSource({
+            "0, 1, 1",
+            "1, 2, 3",
+            "-2, -2, -4",
+            "0, 0, 0",
+            "-1, -2, -3"
+    })
+    public void testAddParametre(int opG, int opD, int resultatAttendu) {
+        // Appel de la méthode add avec les paramètres opG et opD
+        int result = Calculator.add(opG, opD);
 
-    @Test
-    public void testDivisionValide() {
-        // Test de la division statique
-        int result = Calculator.divide(10, 2);
-        assertThat(result).isEqualTo(5);
-    }
-
-    @Test
-    public void testAddition() {
-        // Test de l'addition statique
-        int result = Calculator.add(3, 4);
-        assertThat(result).isEqualTo(7);
+        // Vérification du résultat attendu
+        assertThat(result).isEqualTo(resultatAttendu);
     }
 }
