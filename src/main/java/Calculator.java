@@ -1,13 +1,15 @@
 public class Calculator {
-    public int add(int opG, int opD) {
+
+    // Méthode d'addition statique
+    public static int add(int opG, int opD) {
         return opG + opD;
     }
 
-    public int divide(int opG, int opD) {
+    // Méthode de division statique
+    public static int divide(int opG, int opD) {
         if (opD == 0) {
             throw new IllegalArgumentException("Division par zéro non autorisée");
         }
         return opG / opD;
     }
-
 }
