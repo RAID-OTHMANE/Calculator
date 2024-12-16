@@ -1,24 +1,21 @@
 import org.junit.jupiter.api.Test;
-import java.util.Set;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class CalculatorTest {
 
+    // Test pour vérifier l'exception dans 'add' (dépassement de capacité)
     @Test
-    public void testEnsembleChiffresPositive() {
-        Set<Integer> result = Calculator.ensembleChiffres(7679);
-        assertThat(result).containsExactlyInAnyOrder(6, 7, 9); // Réponse attendue : {6, 7, 9}
+    public void testAddOverflow() {
+        assertThatThrownBy(() -> Calculator.add(Integer.MAX_VALUE, 1))
+                .isInstanceOf(ArithmeticException.class)
+                .hasMessage("Dépassement de capacité pour un entier");
     }
 
+    // Test pour vérifier l'exception dans 'divide' (division par zéro)
     @Test
-    public void testEnsembleChiffresNegative() {
-        Set<Integer> result = Calculator.ensembleChiffres(-11);
-        assertThat(result).containsExactly(1); // Réponse attendue : {1}
-    }
-
-    @Test
-    public void testEnsembleChiffresZero() {
-        Set<Integer> result = Calculator.ensembleChiffres(0);
-        assertThat(result).containsExactly(0); // Réponse attendue : {0}
+    public void testDivideByZero() {
+        assertThatThrownBy(() -> Calculator.divide(5, 0))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Division par zéro non autorisée");
     }
 }
